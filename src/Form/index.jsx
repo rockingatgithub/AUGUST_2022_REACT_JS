@@ -2,6 +2,7 @@ import { useState } from "react";
 import Profile from "../Profile";
 import UIForm from 'react-bootstrap/Form';
 import  Button  from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 // import './form.module.css'
 
 
@@ -10,7 +11,7 @@ export const Form = (props) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [user, setUser] = useState({})
+    const navigate = useNavigate()
 
     const signupHandler = async event => {
         event.preventDefault()
@@ -31,7 +32,11 @@ export const Form = (props) => {
 
         const parsedResponse = await signupResponse.json()
 
-        setUser(parsedResponse.data)
+        if(signupResponse.status == 200) {
+            props.setUser(parsedResponse.data)
+            navigate('/profile')
+        }
+        
 
     }
 
@@ -62,7 +67,6 @@ export const Form = (props) => {
             <Button type="submit" > Submit </Button>
 
         </UIForm>
-        <Profile user={user} />
     </>
 
 

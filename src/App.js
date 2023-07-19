@@ -3,9 +3,11 @@ import { Link, Route, Routes } from 'react-router-dom';
 import Clock from './Clock';
 import { Form as UserForm } from './Form';
 import List from './List'
+import Dashboard from './Profile';
 
 function App() {
 
+  const [user, setUser] = useState({})
   const [showList, setShowList] = useState(true)
   const [ showClock, setShowClock ] = useState(true)
 
@@ -31,7 +33,8 @@ function App() {
 
       <Routes>
         <Route path='/list' element={<List courses={courses} heading={'Courses List'}/>} />
-        <Route path='/signup' element={<UserForm/>} />
+        <Route path='/profile' element={<Dashboard user={user} />} />
+        <Route path='/signup' element={<UserForm setUser={setUser} />} />
       </Routes>
 
 
