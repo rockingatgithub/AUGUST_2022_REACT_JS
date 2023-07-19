@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import Clock from './Clock';
+import { Form as UserForm } from './Form';
 import List from './List'
-import UserForm from './UserForm';
-import Form from './UserForm2';
 
 function App() {
 
@@ -31,8 +30,8 @@ function App() {
       </div>
 
       <Routes>
-        <Route path='/signup' element={<Form/>} />
         <Route path='/list' element={<List courses={courses} heading={'Courses List'}/>} />
+        <Route path='/signup' element={<UserForm/>} />
       </Routes>
 
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const Form = (props) => {
+const UserForm = (props) => {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -85,4 +85,6 @@ const Form = (props) => {
 
 } 
 
-export default Form
+export default UserForm
+
+
