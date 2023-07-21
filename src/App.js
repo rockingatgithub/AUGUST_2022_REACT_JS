@@ -1,15 +1,18 @@
 import { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import { Link, Route, Routes } from 'react-router-dom';
+import { decrementCounter, incrementCounter } from './actions';
 import Clock from './Clock';
 import { Form as UserForm } from './Form';
 import List from './List'
 import Dashboard from './Profile';
 
-function App() {
+function App(props) {
 
   const [user, setUser] = useState({})
   const [showList, setShowList] = useState(true)
   const [ showClock, setShowClock ] = useState(true)
+  const dispatch = useDispatch()
 
   const courses = ['HTML', 'CSS', 'JS', 'ReactJS', 'NodeJS', 'NestJS']
 
@@ -20,6 +23,20 @@ function App() {
   const toggleClock = () => {
     setShowClock( prevValue => !prevValue )
   }
+
+  const incrementHandler = () => {
+
+    dispatch(incrementCounter(10))
+
+  }
+
+  const decrementHandler = () => {
+
+    dispatch(decrementCounter(10))
+
+  }
+
+  console.log("state from store", props.main)
 
   return (
     <div className="App">
@@ -37,10 +54,21 @@ function App() {
         <Route path='/signup' element={<UserForm setUser={setUser} />} />
       </Routes>
 
+      <div>
+        <button onClick={incrementHandler} > Inc </button>
+          <span>Counter:- {props.main.counter} </span>
+        <button onClick={decrementHandler} > Dec </button>
+      </div>
 
       
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+
+  return { main: state }
+
+}
+
+export default connect(mapStateToProps)(App);
