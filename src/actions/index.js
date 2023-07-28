@@ -1,33 +1,30 @@
-// export const signupHandler = async event => {
-//     event.preventDefault()
+// Actions rules:-
+// 1. Pure functions.
+// 2. Return simple JS objects.
 
-//     const userObj = {
-//         name,
-//         email,
-//         password
-//     }
+export const signupFunction = (userObj, navigate) => {
 
-//     const signupResponse = await fetch('http://localhost:8000/student', {
-//         method: 'POST',
-//         body: JSON.stringify(userObj),
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     })
+    return async (dispatch, getState) => {
 
-//     const parsedResponse = await signupResponse.json()
+        console.log("in signup action",getState())
 
-//     if(signupResponse.status == 200) {
-//         props.setUser(parsedResponse.data)
-//         navigate('/profile')
-//     }
+        const signupResponse = await fetch('http://localhost:8000/student', {
+            method: 'POST',
+            body: JSON.stringify(userObj),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
+        const parsedResponse = await signupResponse.json()
+
+        if (signupResponse.status == 200) {
+            dispatch({  type: 'SET_USER', data: parsedResponse.data })
+            navigate('/profile')
+        }
     
-
-// }
-
-// actions have two rules:-
-// 1. It should be a pure function.
-// 2. It should return simple JS object.
+    }
+}
 
 export const incrementCounter = (num) => {
 

@@ -17,7 +17,7 @@ class UserForm extends React.Component {
         console.log("Component updated!")
     }
 
-    showHeadingHandler = () => {
+    showHeadingHandler  () {
         
         this.setState(  
             state =>  ({ isHeadingVisible: !state.isHeadingVisible }),

@@ -3,6 +3,8 @@ import Profile from "../Profile";
 import UIForm from 'react-bootstrap/Form';
 import  Button  from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import { connect, useDispatch } from "react-redux";
+import { signupFunction } from "../actions";
 // import './form.module.css'
 
 
@@ -12,32 +14,12 @@ export const Form = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const signupHandler = async event => {
         event.preventDefault()
-
-        const userObj = {
-            name,
-            email,
-            password
-        }
-
-        const signupResponse = await fetch('http://localhost:8000/student', {
-            method: 'POST',
-            body: JSON.stringify(userObj),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-
-        const parsedResponse = await signupResponse.json()
-
-        if(signupResponse.status == 200) {
-            props.setUser(parsedResponse.data)
-            navigate('/profile')
-        }
-        
-
+        const user = {name, email, password}
+        dispatch( signupFunction(user, navigate) )
     }
 
     return <><h3> UserForm </h3>
@@ -71,3 +53,5 @@ export const Form = (props) => {
 
 
 }
+
+
